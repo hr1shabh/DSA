@@ -62,6 +62,38 @@ t->next = temp;
 return head;
  }
 
+
+//================================================================================================================//
+//Recursive code
+node* insertAtK_R(node* head,int i, int no){
+if(head == NULL) return NULL;
+
+if(i == 0){
+node* t = new node(no);
+t->next = head;
+head = t;
+return head;
+}
+head->next = insertAtK_R(head->next,i-1,no);
+return head;
+}
+
+//================================================================================================================//
+// delete Recusively
+node* DeleteAtKR(node* head, int i){
+if(head == NULL) return NULL;
+
+if(i == 0){
+node* t = head;
+head = head->next;
+delete t;
+return head;
+}
+head->next = DeleteAtKR(head->next,i-1);
+return head;
+}
+
+
 //================================================================================================================//
 // delete element at i th position
 node* DeleteAtK(node* head,int i){
@@ -89,8 +121,8 @@ return head;
 int main(){
 node* head = takeInput(); //head is the pointer to the head node of linked list
 print(head);
-head = inserAtK(head,3,4);
+head = insertAtK_R(head,3,4);
 print(head);
-head = DeleteAtK(head,0);
+head = DeleteAtKR(head,2);
 print(head);
 return 0;}
