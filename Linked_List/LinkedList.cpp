@@ -117,12 +117,104 @@ return head;
 }
 
 //================================================================================================================//
+
+// function to return mid value of linked list without knowing its length 
+node* mid(node* head){
+if(head == NULL) return head;
+node* slow = head;
+node* fast = head;
+while(fast->next != NULL and fast->next->next != NULL){
+	slow = slow->next;
+	fast = fast->next->next;
+}
+return slow;
+}
+
+//================================================================================================================//
+//merge two sorted linked list
+node* merge(node* h1, node* h2){
+if(h1 == NULL) return h2;
+if(h2 == NULL) return h1;
+node* h = NULL;
+if((h1->data) < (h2->data)){
+h = h1; 
+h1=h1->next;
+}
+else{
+	h=h2;  h2=h2->next;
+}
+
+node* t = h;
+while(h1!=NULL and h2!=NULL){
+if((h1->data) > (h2->data)){
+	t->next = h2;
+	t = t->next;
+	h2=h2->next;
+}
+else{
+t->next = h1;
+t = t->next;
+h1=h1->next;
+}
+}
+
+while(h1!=NULL){
+t->next = h1;
+t = h1;
+h1=h1->next;
+}
+while(h2!=NULL){
+	t->next = h2;
+	t = h2;
+	h2=h2->next;	
+}
+return h;
+}
+//================================================================================================================//
+//***REVERSE A LINKED LIST ***//
+node* Reverse(node* head){
+if(head == NULL or head->next == NULL) return head;
+
+node* h = Reverse(head->next);
+node* temp = head->next;
+temp->next = head;
+head->next = NULL;
+return h;
+}
+//================================================================================================================//
+node* ReverseI(node* head){
+if(head == NULL or head->next == NULL) return head;
+node* c = head; // c holds the current position
+node* p = NULL; // p holds the previous position
+node* n = head; // n holds the next position
+while(1){
+n = n->next;	
+c->next = p;  // curr position should point to its prev
+p = c;  // pre will movw to curr
+if(n == NULL){ //if our next pos is NULL then we are done
+	break;
+}
+c = n;
+}
+return c;
+}
+//================================================================================================================//
 // we use dynamic allocation due to scope issue
 int main(){
-node* head = takeInput(); //head is the pointer to the head node of linked list
-print(head);
-head = insertAtK_R(head,3,4);
-print(head);
-head = DeleteAtKR(head,2);
-print(head);
+// node* head = takeInput(); //head is the pointer to the head node of linked list
+// print(head);
+// head = insertAtK_R(head,3,4);
+// print(head);
+// head = DeleteAtKR(head,2);
+// print(head);
+// cout<<mid(head)->data<<endl;
+
+// node* h1 = takeInput();
+// node* h2 = takeInput();
+// node* h = merge(h1,h2);
+node* h =takeInput();
+h = Reverse(h);
+print(h);
+h = ReverseI(h);
+print(h);
 return 0;}
