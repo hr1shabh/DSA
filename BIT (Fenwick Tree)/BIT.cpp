@@ -13,7 +13,7 @@ void update(int idx, int val, vector<int> &BIT, int n){
 int query(int idx, vector<int> &BIT){
     int sum = 0;
     for(;idx > 0; idx -= idx&(-idx)){
-        sum += BIT[idx];
+        sum += BIT[idx];    
     }
     return sum;
 }
